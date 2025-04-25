@@ -1,19 +1,22 @@
 const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const cors = require("cors"); // ✅ Import CORS
+const orderRoutes = require("./routes/orderRoutes"); // Adjust path if needed
 
-const getNearbyOrders = require("./routes/getNearbyOrders");
-const assignOrder = require("./routes/assignOrder");
+dotenv.config();
 
 const app = express();
-app.use(cors());
+
+app.use(cors()); // ✅ Enable CORS for all origins
+
+// Middleware to parse JSON
 app.use(express.json());
 
-// Routes
-app.use("/api", getNearbyOrders);
-app.use("/api", assignOrder);
+// Use routes
+app.use("/api", orderRoutes);
 
-const PORT = process.env.PORT || 5001;
+// Start the server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Driver Assignment Service running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
