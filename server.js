@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const connectDB = require("./config/db");
 const cors = require("cors"); // ✅ Import CORS
 const orderRoutes = require("./routes/orderRoutes"); // Adjust path if needed
 
@@ -11,6 +12,8 @@ app.use(cors()); // ✅ Enable CORS for all origins
 
 // Middleware to parse JSON
 app.use(express.json());
+// Connect to MongoDB
+connectDB();
 
 // Use routes
 app.use("/api", orderRoutes);
