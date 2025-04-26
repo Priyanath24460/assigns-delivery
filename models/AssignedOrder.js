@@ -10,7 +10,7 @@ const assignedOrderSchema = new mongoose.Schema({
     longitude: { type: Number, required: true },
   },
   vehicleNumber: { type: String, required: true },
-  contactNumber: { type: String, required: true },
+  contactNumber: { type: String },
 }, { timestamps: true });
 
 module.exports = mongoose.model("AssignedOrder", assignedOrderSchema);
