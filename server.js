@@ -1,22 +1,27 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const cors = require("cors"); // ✅ Import CORS
-const orderRoutes = require("./routes/orderRoutes"); // Adjust path if needed
+const cors = require("cors");
+
+const orderRoutes = require("./routes/orderRoutes");
+const assignOrderRoutes = require("./routes/assignOrders"); // ✅ Import your new route
 
 dotenv.config();
 
 const app = express();
 
-app.use(cors()); // ✅ Enable CORS for all origins
+// Enable CORS
+app.use(cors());
 
 // Middleware to parse JSON
 app.use(express.json());
+
 // Connect to MongoDB
 connectDB();
 
 // Use routes
-app.use("/api", orderRoutes);
+app.use("/api/orders", orderRoutes);         // Example: GET /api/orders
+app.use("/api/assign", assignOrderRoutes);   // Example: POST /api/assign/assign-order
 
 // Start the server
 const PORT = process.env.PORT || 5000;
