@@ -1,20 +1,20 @@
 const axios = require("axios");
 
 // Controller function to get accepted orders
-const getAcceptedOrders = async (req, res) => {
+const getOutForDelivery = async (req, res) => {
   try {
     // Get all orders
     const { data: orders } = await axios.get("https://ordermanagementservice.onrender.com/api/orders");
 
     // Filter only accepted orders
-    const acceptedOrders = orders.filter(order => order.status === "Accepted");
+    const OutForDelivery = orders.filter(order => order.status === "Out for Delivery");
 
-    if (acceptedOrders.length === 0) {
-      return res.json({ message: "No accepted orders" });
+    if (OutForDelivery.length === 0) {
+      return res.json({ message: "Out for Delivery" });
     }
 
     // Send filtered orders to frontend
-    res.json({ orders: acceptedOrders });
+    res.json({ orders: OutForDelivery });
   } catch (error) {
     console.error("Error fetching orders:", error.message);
     res.status(500).json({ message: "Server error" });
@@ -22,5 +22,5 @@ const getAcceptedOrders = async (req, res) => {
 };
 
 module.exports = {
-  getAcceptedOrders,
+  getOutForDelivery,
 };
