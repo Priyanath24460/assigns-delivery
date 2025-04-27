@@ -7,14 +7,14 @@ const getOutForDelivery = async (req, res) => {
     const { data: orders } = await axios.get("https://ordermanagementservice.onrender.com/api/orders");
 
     // Filter only accepted orders
-    const OutForDelivery = orders.filter(order => order.status === "Out for Delivery");
+    const Prepared = orders.filter(order => order.status === "Prepared");
 
-    if (OutForDelivery.length === 0) {
+    if (Prepared.length === 0) {
       return res.json({ message: "Out for Delivery" });
     }
 
     // Send filtered orders to frontend
-    res.json({ orders: OutForDelivery });
+    res.json({ orders: Prepared });
   } catch (error) {
     console.error("Error fetching orders:", error.message);
     res.status(500).json({ message: "Server error" });
